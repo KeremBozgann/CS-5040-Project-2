@@ -28,9 +28,24 @@ import java.io.IOException;
  */
 public class ExpressionEvaluator { 
     
+//    public static void main(String[] args) { 
+//        
+//        System.out.println(ExpressionEvaluator.evaluate
+//            ("(+ (- 6 7) (* 234 455 256) (/ (/ 3) (*) (-2 3 1)))"));
+//
+//        System.out.println(ExpressionEvaluator.evaluate
+//            ("(+ (- 632) (* a 3 b c) (/ (+ 32) (*) (- c 3 d)))"));
+
+//        System.out.println(ExpressionEvaluator.evaluate
+//            ("(+ (- 6) (* abb3c4bc))"));
+
+//        System.out.println(ExpressionEvaluator.evaluate
+//            ("(+ (- 6 7) (* 234 455 256) (/ (/ 3) (*) (-2 3 1)))"));
+//    } 
+    
     /**
      * check whether expression is balanced 
-     * @param expr  
+     * @param expr LISP expression  
      * @return boolean
      */
     public static boolean isBalanced(String expr) {
@@ -58,20 +73,25 @@ public class ExpressionEvaluator {
     
     /**
      * evaluate expression
-     * @param expr  
+     * @param expr LISP expression  
      * @return double 
      */
     public static Double evaluate(String expr) { 
         
         //check if expression is balanced
         if (expr.isEmpty() || !isBalanced(expr) ) {
-        throw new RuntimeException("Expression is not a valid Lisp expression");}
+        throw new RuntimeException("Expression is not a valid Lisp expression");}  
         
         //separate expression into components
         ArrayList<String> substrings = new ArrayList<String>(
             Arrays.asList(expr.split("((?=:|-|\\*|/|\\+|\\p{L}|\\s+|\\(|\\))|(?<=:|-|\\*|/|\\+|\\p{L}|\\s+|\\(|\\)))"))
             );
         substrings.removeAll(Arrays.asList("", " "));
+        
+        //if expression is contains less than 2 chars, throw exception
+        if (substrings.size() <= 2) 
+        {throw new RuntimeException("Expression is not a valid Lisp expression");}
+      
         
         //DEFINE OPERATOR AND OPERAND STACK
         LStack<Token> operatorStack = new LStack<Token>();
@@ -135,7 +155,7 @@ public class ExpressionEvaluator {
                         //- or /, then throw error:
                         Character oprtSymb = operator.getOperator(); 
                         if (oprtSymb == '-' || oprtSymb == '/') {
-                            throw new RuntimeException("Expression is not a valid Lisp expression");
+                            throw new RuntimeException("Expected at least 1 operand");
 
                         }
                         //if single operand when operator is 
@@ -164,7 +184,7 @@ public class ExpressionEvaluator {
                                       result = operator.applyOperator(result,opVal);
                                       count++;}
                                   }}
-                        //if operator is -:
+                        //if operator is -, different evaluation process:
                         else if( oprtSymb== '-'){
                             while (true) { 
                                 if (operandStack.topValue().isOpenParanthesis())
@@ -224,14 +244,15 @@ public class ExpressionEvaluator {
     
     /**
      * ask user for variable value
-     * @param opr 
+     * @param opr a character in LISP expression
      * @return  number 
+     *  @throws IOException invalid entry
      */
     public static Double readInput(Character opr) throws IOException  { 
         Scanner sc= new Scanner(System.in); 
-        System.out.println("What is the value of ?" + opr);
+        System.out.println("What is the value of '" + opr + "'" + "?");
         double number = (double) sc.nextInt();
-        sc.close();
+//        sc.close();
         return number;
    
 }

@@ -30,7 +30,7 @@ public class Token {
     
     /**
      * set up character token
-     * @param operator
+     * @param operator character in LISP expression
      */
     public Token(Character operator) {
         this.operand = 0.0;
@@ -40,7 +40,7 @@ public class Token {
 
     /**
      * set up character token
-     * @param operand
+     * @param operand operand value
      */
     public Token(Double operand) {
         this.isOperator = false;
@@ -52,9 +52,9 @@ public class Token {
      * 
      * apply operator
      * 
-     * @param value1 
+     * @param value1 first input
      * 
-     * @param value2 
+     * @param value2 second input
      *     
      * @return result
      */
@@ -104,8 +104,7 @@ public class Token {
     /**
      * 
      * whether operator can be called withouth an operand
-     * 
-     * @param boolean
+     * @return boolean
      */
     public boolean takesNoOperands() {
         if (operator == '+') {

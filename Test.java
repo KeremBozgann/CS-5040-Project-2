@@ -27,7 +27,8 @@ import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 import student.TestCase;
 
 /**
- * Contains all the tests of classes
+ * Contains all the tests of classes I have indivually
+ * constracted for validation 
  * 
  * @author Kerem Bozgan kerembozgan
  * @version 2022-09-03
@@ -85,6 +86,23 @@ public class Test extends TestCase {
         assertEquals(ExpressionEvaluator.evaluate("(+ (- 632) (* 4 3 4) (/ (+ 32) (*) (- 21 3 1)))"), -582.1176470588, delta);
 
         assertEquals(ExpressionEvaluator.evaluate("(+ (- 12) (* 4 2 3) (/ (+4) (*) (- 2 3 1)))"), 10, delta);
+
+        assertEquals(ExpressionEvaluator.evaluate("(+ (- 5)\n"
+            + "  (* 4 4 5)\n"
+            + "  (/ 3 2 2)\n"
+            + "  (* 4 4)\n"
+            + ")"), 91.75, delta);
+        
+        
+//        System.out.println(ExpressionEvaluator.evaluate("((* (/ 3 w l) (* r r))"));
+        
+        assertEquals(ExpressionEvaluator.evaluate("(* 3255)"), 3255, delta);
+//      System.out.println(ExpressionEvaluator.evaluate("()"));
+//      System.out.println(ExpressionEvaluator.evaluate("( / * w l)"));
+//      System.out.println(ExpressionEvaluator.evaluate("(1 + 2 + 3 + 4)"));
+//      System.out.println(ExpressionEvaluator.evaluate("(* (/ 3 w l) (* (r r))"));
+//      System.out.println(ExpressionEvaluator.evaluate("(* (/ 3 2 2 * 1 1))"));
+//      System.out.println(ExpressionEvaluator.evaluate("(* (/ 3 a 2) (/) (* 5 5))"));
 
 //        systemInMock.provideLines("4", "6");//
 //        setCapture();
