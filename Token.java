@@ -139,14 +139,35 @@ public class Token {
             return false;
     }
     
+    /**
+     * get value of operand
+     *     
+     * @return value of operand
+     */
     public Double getValue() { 
         return this.operand;
     }
     
+    /**
+     * get value of operator
+     *     
+     * @return operator
+     */
     public Character getOperator() { 
         return this.operator;
     }
 
-
+    /**
+     * check if the character saved in operator 
+     * is open paranthesis
+     *    
+     * @return boolean
+     */
+    protected boolean isOpenParanthesis() { 
+        if (this.operator == '(') {
+            return true;
+        }
+        return false;
+    }
     
 }
