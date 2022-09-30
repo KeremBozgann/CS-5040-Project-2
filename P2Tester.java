@@ -709,4 +709,61 @@ public class P2Tester {
         System.setIn(null);
         System.setIn(sysIn);
     }
+    
+    public void ExpressionEvaluator_myException(String st) {
+        try {
+            ExpressionEvaluator.evaluate(st);
+            fail(st);
+        }
+        catch (RuntimeException e) {
+            throw e;
+        }
+
+    }
+    
+//    @Test(expected = RuntimeException.class)
+//    public void emptyExpression() { 
+//        String st = "( ) ";
+//        ExpressionEvaluator_myException(st);
+//    }
+    
+    @Test(expected = RuntimeException.class)
+    public void notBalanced() { 
+        String st = "( )) ";
+        ExpressionEvaluator_myException(st);
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void noOperator() { 
+        String st = "(1 2) ";
+        ExpressionEvaluator_myException(st);
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void multipleOperator() { 
+        String st = "((+1 2) (* + 1 2))";
+        ExpressionEvaluator_myException(st);
+    }
+    
+    @Test
+    public void testIdent() { 
+        String st = "(* 1) ";
+        assertEquals(ExpressionEvaluator.evaluate(st), 1.0, ERR);
+        
+        st = "(/ 1) ";
+        assertEquals(ExpressionEvaluator.evaluate(st), 1.0, ERR);
+    }
+    
+    @Test
+    public void testIdent2() { 
+        String st = "(* 1) ";
+        assertEquals(ExpressionEvaluator2.evaluate(st), 1.0, ERR);
+        
+        st = "(+ 1) ";
+        assertEquals(ExpressionEvaluator2.evaluate(st), 1.0, ERR);
+        
+        st = "(/ 1) ";
+        assertEquals(ExpressionEvaluator2.evaluate(st), 1.0, ERR);
+    }
+    
 }
